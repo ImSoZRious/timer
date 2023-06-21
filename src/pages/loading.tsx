@@ -19,7 +19,7 @@ export default function({ appState, setAppState }: { appState: Accessor<Connecti
         return randomString;
     }
 
-    const ws = new WebSocket("ws://localhost:6969");
+    const ws = new WebSocket("wss://timer-server.onrender.com");
     ws.onopen = () => {
         setInnerText("Handshaking")
         setDotCount(0)
