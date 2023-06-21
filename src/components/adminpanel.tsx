@@ -26,7 +26,7 @@ export default function({ ws }: {ws: WebSocket}) {
             <input type="number" class="time-input-element" placeholder="00" onInput={(e) => setHour(parseInt(e.target.value))}/>
             <input type="number" class="time-input-element" placeholder="00" onInput={(e) => setMinute(parseInt(e.target.value))}/>
             <input type="number" class="time-input-element" placeholder="00" onInput={(e) => setSecond(parseInt(e.target.value))}/>
-            <button class="admin-btn time-input-element" onClick={sendNewFinalTime}>set</button>
+            <button class="admin-btn time-input-element" title="update final time" onClick={sendNewFinalTime}>set</button>
         </div>
     </div>
 }
