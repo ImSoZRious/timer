@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    height: 100%;
+    font-family: 'Space Mono';
+    font-weight: 700;
+    flex-direction: column;
+}
+
+.header {
+    padding-top: 2%;
+    flex: .8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-text {
+    font-size: 6em;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.body {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.roomcode-text-input {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-bottom: 24px solid black;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 18em;
+    font-style: italic;
+    text-align: center;
+    background-color: transparent;
+    line-height: 0em;
+}
+
+.footer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 2%;
+    align-items: center;
+}
+
+.roomcode-btn {
+    border: 5px solid #000000;
+    border-radius: 999px;
+    font-size: 6em;
+    background-color: transparent;
+    padding: 15px 25px;
+    font-style: italic;
+    white-space: nowrap;
+}

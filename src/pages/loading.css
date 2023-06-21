@@ -1,0 +1,13 @@
+div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 4em;
+    font-family: 'Space Mono';
+    font-style: italic;
+    text-align: center;
+}

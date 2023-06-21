@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+    justify-content: center;
+}
+
+.text {
+    margin: 0;
+    padding: 0;
+    font-size: 20em;
+    font-family: 'Space Mono';
+    flex: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.unselectable {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.admin-panel-active {
+    transition: 1s;
+    flex: 1;
+    overflow: hidden;
+}
+
+.admin-panel-idle {
+    flex: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: none;
+    transition: 1s;
+}
