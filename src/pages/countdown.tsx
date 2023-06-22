@@ -17,8 +17,6 @@ export default function({ appState, setAppState }: { appState: Accessor<Countdow
     let idleTimeout: any
     
     appState().data.socket.onmessage = (rawEvent) => {
-        console.log(rawEvent)
-
         const event = JSON.parse(rawEvent.data) as Event
         let eventHandler = handler.get(event.type)
         if (eventHandler) {
@@ -81,8 +79,6 @@ export default function({ appState, setAppState }: { appState: Accessor<Countdow
         }
 
         setTimeRemaining(newTime)
-
-        console.log({hour, minute, second})
     }
 
     const active = () => {
@@ -93,7 +89,7 @@ export default function({ appState, setAppState }: { appState: Accessor<Countdow
         }
         idleTimeout = setTimeout(() => {
             setIdle(true)
-        }, 2000)
+        }, 10000)
     }
 
     return <div class="container unselectable" onMouseMove={(e) => {active()}}>
