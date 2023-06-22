@@ -2,6 +2,8 @@ import { Accessor, createSignal } from "solid-js"
 import "./loading.css"
 import { ConnectingState, State } from "../state"
 
+const wsEndpoint = import.meta.env.VITE_WS_ENDPOINT || "ws://localhost:3000/ws";
+
 export default function({ appState, setAppState }: { appState: Accessor<ConnectingState>, setAppState: (newState: State) => void }) {
     const [dotCount, setDotCount] = createSignal(0)
     const loadingText = () => innerText() + ".".repeat(dotCount())
@@ -19,7 +21,7 @@ export default function({ appState, setAppState }: { appState: Accessor<Connecti
         return randomString;
     }
 
-    const ws = new WebSocket("wss://timer-server.onrender.com");
+    const ws = new WebSocket(wsEndpoint);
     ws.onopen = () => {
         setInnerText("Handshaking")
         setDotCount(0)
