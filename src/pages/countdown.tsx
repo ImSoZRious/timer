@@ -38,7 +38,7 @@ export default function({ appState, setAppState }: { appState: Accessor<Countdow
 
         cancel = setInterval(() => {
             updateTime()
-        }, 400)
+        }, 200)
     })
     
     handler.set('admin_notice', (payload: AdminNotice) => {
