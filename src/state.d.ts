@@ -1,21 +1,21 @@
 export interface RoomCodeState {
-    type: 'roomcode',
-    data: {},
+    type: 'roomcode'
+    data: {}
 }
 
 export interface ConnectingState {
-    type: 'connecting',
+    type: 'connecting'
     data: {
-        addr: string,
-        roomCode: string,
-    },
+        addr: string
+        roomCode: string
+    }
 }
 
 export interface CountdownState {
-    type: 'countdown',
+    type: 'countdown'
     data: {
-        socket: WebSocket,
-    },
-} 
+        socket: WebSocket
+    }
+}
 
 export type State = ConnectingState | RoomCodeState | CountdownState
