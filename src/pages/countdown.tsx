@@ -89,7 +89,7 @@ export default function({ appState, setAppState }: { appState: Accessor<Countdow
         }
         idleTimeout = setTimeout(() => {
             setIdle(true)
-        }, 10000)
+        }, 2000)
     }
 
     return <div class="container unselectable" onMouseMove={(e) => {active()}}>
