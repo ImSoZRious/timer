@@ -32,6 +32,9 @@ export default function ({
     const handler: Map<EventKey, (payload: any) => void> = new Map()
 
     handler.set('final_time_change', (payload: FinalTimeChangeEvent) => {
+        if (payload.data.new_final_time <= Date.now() / 1000) {
+            return
+        }
         if (cancel) {
             clearInterval(cancel)
             cancel = null
@@ -81,6 +84,10 @@ export default function ({
         if (finalTime <= now) {
             setTimeRemaining('0')
             setIsCounting(false)
+
+            const audio = new Audio('alarm.mp3')
+            audio.play()
+
             if (cancel) {
                 clearInterval(cancel)
             }
