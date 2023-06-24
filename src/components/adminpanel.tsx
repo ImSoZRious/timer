@@ -24,6 +24,17 @@ export default function ({ ws }: { ws: WebSocket }) {
                 },
             })
         )
+        setHour(0)
+        setMinute(0)
+        setSecond(0)
+    }
+
+    const parseIntOrZero = (x: string) => {
+        const parsed = parseInt(x)
+        if (isNaN(parsed)) {
+            return 0
+        }
+        return parsed
     }
 
     return (
@@ -34,19 +45,19 @@ export default function ({ ws }: { ws: WebSocket }) {
                     type="number"
                     class="time-input-element"
                     placeholder="00"
-                    onInput={(e) => setHour(parseInt(e.target.value))}
+                    onInput={(e) => setHour(parseIntOrZero(e.target.value))}
                 />
                 <input
                     type="number"
                     class="time-input-element"
                     placeholder="00"
-                    onInput={(e) => setMinute(parseInt(e.target.value))}
+                    onInput={(e) => setMinute(parseIntOrZero(e.target.value))}
                 />
                 <input
                     type="number"
                     class="time-input-element"
                     placeholder="00"
-                    onInput={(e) => setSecond(parseInt(e.target.value))}
+                    onInput={(e) => setSecond(parseIntOrZero(e.target.value))}
                 />
                 <button
                     class="admin-btn time-input-element"
