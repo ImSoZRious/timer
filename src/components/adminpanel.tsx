@@ -16,10 +16,10 @@ export default function ({
 
     const getFinalTimestamp = () => {
         return (
-            Math.floor(Date.now() / 1000) +
-            hour() * 3600 +
-            minute() * 60 +
-            second()
+            Date.now() +
+            hour() * 3_600_000 +
+            minute() * 60_000 +
+            second() * 1_000
         )
     }
 
@@ -32,9 +32,6 @@ export default function ({
                 },
             })
         )
-        setHour(0)
-        setMinute(0)
-        setSecond(0)
     }
 
     const pauseTimer = () => {

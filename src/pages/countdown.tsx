@@ -44,7 +44,7 @@ export default function ({
 
         cancel = setInterval(() => {
             updateTime()
-        }, 200)
+        }, 1000 / 60)
     })
 
     handler.set('admin_notice', () => {
@@ -73,11 +73,11 @@ export default function ({
 
         cancel = setInterval(() => {
             updateTime()
-        }, 200)
+        }, 1000 / 60)
     })
 
     const updateTime = () => {
-        const now = Math.floor(Date.now() / 1000)
+        const now = Date.now()
         if (finalTime <= now) {
             setTimeRemaining('0')
             setIsCounting(false)
@@ -87,26 +87,31 @@ export default function ({
             return
         }
 
-        const total_second = Math.floor(finalTime - now)
+        const totalMs = finalTime - now
 
-        let hour = Math.floor(total_second / 3600)
-        let minute = Math.floor((total_second % 3600) / 60)
-        let second = Math.floor(total_second % 60)
+        let hour = Math.floor(totalMs / 3_600_000)
+        let minute = Math.floor((totalMs % 3_600_000) / 60_000)
+        let second = Math.floor((totalMs % 60_000) / 1_000)
+        let ms = totalMs % 1000
 
         let newTime = ''
-        let omit = true
-        let displays = [hour, minute, second]
-        for (let i = 0; i < displays.length; i++) {
-            const value = displays[i]
-            if (omit && value == 0) {
-                continue
-            }
+        if (hour == 0 && minute == 0 && second < 10) {
+            newTime = `${second}.${ms.toString().padStart(0, '0')}`
+        } else {
+            let omit = true
+            let displays = [hour, minute, second]
+            for (let i = 0; i < displays.length; i++) {
+                const value = displays[i]
+                if (omit && value == 0) {
+                    continue
+                }
 
-            if (omit) {
-                omit = false
-                newTime += `${value.toString()}`
-            } else {
-                newTime += `:${value.toString().padStart(2, '0')}`
+                if (omit) {
+                    omit = false
+                    newTime += `${value.toString()}`
+                } else {
+                    newTime += `:${value.toString().padStart(2, '0')}`
+                }
             }
         }
 
