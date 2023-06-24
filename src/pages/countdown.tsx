@@ -51,7 +51,7 @@ export default function ({
 
     const updateTime = () => {
         const now = Date.now() / 1000
-        if (finalTime < now) {
+        if (finalTime <= now) {
             setTimeRemaining('0')
             if (cancel) {
                 clearInterval(cancel)
