@@ -1,7 +1,15 @@
-import { createSignal } from 'solid-js'
+import { Accessor, createSignal, Show } from 'solid-js'
 import '~/components/adminpanel.css'
 
-export default function ({ ws }: { ws: WebSocket }) {
+export default function ({
+    ws,
+    isCounting,
+    isPaused,
+}: {
+    ws: WebSocket
+    isCounting: Accessor<boolean>
+    isPaused: Accessor<boolean>
+}) {
     const [second, setSecond] = createSignal(0)
     const [minute, setMinute] = createSignal(0)
     const [hour, setHour] = createSignal(0)
@@ -29,6 +37,24 @@ export default function ({ ws }: { ws: WebSocket }) {
         setSecond(0)
     }
 
+    const pauseTimer = () => {
+        ws.send(
+            JSON.stringify({
+                type: 'pause',
+                data: {},
+            })
+        )
+    }
+
+    const resumeTimer = () => {
+        ws.send(
+            JSON.stringify({
+                type: 'resume',
+                data: {},
+            })
+        )
+    }
+
     const parseIntOrZero = (x: string) => {
         const parsed = parseInt(x)
         if (isNaN(parsed)) {
@@ -39,7 +65,22 @@ export default function ({ ws }: { ws: WebSocket }) {
 
     return (
         <div class="container">
-            <button class="admin-btn container-element">pause</button>
+            <Show when={isCounting()}>
+                <button
+                    class="admin-btn container-element"
+                    onClick={pauseTimer}
+                >
+                    pause
+                </button>
+            </Show>
+            <Show when={isPaused()}>
+                <button
+                    class="admin-btn container-element"
+                    onClick={resumeTimer}
+                >
+                    resume
+                </button>
+            </Show>
             <div class="time-input-container container-element">
                 <input
                     type="number"

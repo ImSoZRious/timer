@@ -10,6 +10,22 @@ export interface AdminNotice {
     data: {}
 }
 
-export type Event = FinalTimeChangeEvent | AdminNotice
+export interface PauseEvent {
+    type: 'pause'
+    data: {}
+}
+
+export interface ResumeEvent {
+    type: 'resume'
+    data: {
+        new_final_time: number | null
+    }
+}
+
+export type Event =
+    | FinalTimeChangeEvent
+    | AdminNotice
+    | PauseEvent
+    | ResumeEvent
 
 export type EventKey = Event['type']

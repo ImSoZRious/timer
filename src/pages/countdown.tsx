@@ -1,12 +1,11 @@
 import { Accessor, Show, createSignal } from 'solid-js'
 import './countdown.css'
 import { CountdownState, State } from '../state'
-import { EventKey, Event, FinalTimeChangeEvent, AdminNotice } from '~/event'
+import { EventKey, Event, FinalTimeChangeEvent, ResumeEvent } from '~/event'
 import AdminPanel from '~/components/adminpanel'
 
 export default function ({
     appState,
-    setAppState,
 }: {
     appState: Accessor<CountdownState>
     setAppState: (newState: State) => void
@@ -14,6 +13,8 @@ export default function ({
     const [timeRemaining, setTimeRemaining] = createSignal('0')
 
     const [idle, setIdle] = createSignal(false)
+    const [isCounting, setIsCounting] = createSignal(false)
+    const [isPaused, setIsPaused] = createSignal(false)
 
     let finalTime = 0
     let cancel: any
@@ -31,12 +32,13 @@ export default function ({
     const handler: Map<EventKey, (payload: any) => void> = new Map()
 
     handler.set('final_time_change', (payload: FinalTimeChangeEvent) => {
-        console.log(payload)
         if (cancel) {
             clearInterval(cancel)
             cancel = null
         }
 
+        setIsCounting(true)
+        setIsPaused(false)
         finalTime = payload.data.new_final_time
         updateTime()
 
@@ -45,14 +47,40 @@ export default function ({
         }, 200)
     })
 
-    handler.set('admin_notice', (payload: AdminNotice) => {
+    handler.set('admin_notice', () => {
         setIsAdmin(true)
+    })
+
+    handler.set('pause', () => {
+        if (cancel) {
+            clearInterval(cancel)
+        }
+        setIsCounting(false)
+        setIsPaused(true)
+    })
+
+    handler.set('resume', (payload: ResumeEvent) => {
+        if (cancel) {
+            clearInterval(cancel)
+            cancel = null
+        }
+
+        // receiver will receive for sure
+        finalTime = payload.data.new_final_time as number
+        setIsCounting(true)
+        setIsPaused(false)
+        updateTime()
+
+        cancel = setInterval(() => {
+            updateTime()
+        }, 200)
     })
 
     const updateTime = () => {
         const now = Math.floor(Date.now() / 1000)
         if (finalTime <= now) {
             setTimeRemaining('0')
+            setIsCounting(false)
             if (cancel) {
                 clearInterval(cancel)
             }
@@ -99,14 +127,18 @@ export default function ({
     return (
         <div
             class="container unselectable"
-            onMouseMove={(e) => {
+            onMouseMove={() => {
                 active()
             }}
         >
             <h1 class="text">{timeRemaining()}</h1>
             <Show when={isAdmin()}>
                 <div class={idle() ? 'admin-panel-idle' : 'admin-panel-active'}>
-                    <AdminPanel ws={appState().data.socket} />
+                    <AdminPanel
+                        ws={appState().data.socket}
+                        isCounting={isCounting}
+                        isPaused={isPaused}
+                    />
                 </div>
             </Show>
         </div>
