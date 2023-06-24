@@ -38,7 +38,7 @@ export default function ({
     const handler: Map<EventKey, (payload: any) => void> = new Map()
 
     handler.set('final_time_change', (payload: FinalTimeChangeEvent) => {
-        if (payload.data.new_final_time <= Date.now() / 1000) {
+        if (payload.data.new_final_time <= Date.now()) {
             return
         }
         if (cancel) {
