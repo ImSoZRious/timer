@@ -115,8 +115,9 @@ export default function ({
             setTimeRemaining('0')
             setIsCounting(false)
 
-            const audio = new Audio('alarm.mp3')
-            audio.play()
+            if (!isAdmin() && !appState().data.roomCode.startsWith("help-")) {
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+            }
 
             if (cancel) {
                 clearInterval(cancel)

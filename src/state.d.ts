@@ -15,6 +15,7 @@ export interface CountdownState {
     type: 'countdown'
     data: {
         socket: WebSocket
+        roomCode: string
     }
 }
 

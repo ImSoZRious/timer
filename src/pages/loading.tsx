@@ -41,6 +41,7 @@ export default function ({
             type: 'countdown',
             data: {
                 socket: ws,
+                roomCode: appState().data.roomCode,
             },
         })
         clearInterval(cancel)
