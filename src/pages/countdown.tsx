@@ -115,7 +115,7 @@ export default function ({
             setTimeRemaining('0')
             setIsCounting(false)
 
-            if (!isAdmin() && !appState().data.roomCode.startsWith("help-")) {
+            if (!appState().data.roomCode.startsWith("help-")) {
                 window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
             }
 
