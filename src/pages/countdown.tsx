@@ -108,7 +108,7 @@ export default function ({
 
         let newTime = ''
         if (hour == 0 && minute == 0 && second < 10) {
-            newTime = `${second}.${ms.toString().padStart(0, '0')}`
+            newTime = `${second}.${ms.toString().padStart(3, '0')}`
         } else {
             let omit = true
             let displays = [hour, minute, second]

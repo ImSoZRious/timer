@@ -46,6 +46,8 @@ export default function ({
         clearInterval(cancel)
     }
     ws.onclose = () => {
+        alert('Failed connection: เข้าใหม่นะครับ')
+        window.location.reload()
         console.log('close')
     }
     ws.onerror = (e) => {
