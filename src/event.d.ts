@@ -5,6 +5,13 @@ export interface FinalTimeChangeEvent {
     }
 }
 
+export interface SetNoStartEvent {
+    type: 'set_no_start'
+    data: {
+        new_final_time: number
+    }
+}
+
 export interface AdminNotice {
     type: 'admin_notice'
     data: {}
@@ -33,5 +40,6 @@ export type Event =
     | PauseEvent
     | ResumeEvent
     | ResetEvent
+    | SetNoStartEvent
 
 export type EventKey = Event['type']

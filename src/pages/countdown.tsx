@@ -1,7 +1,13 @@
 import { Accessor, Show, createSignal } from 'solid-js'
 import './countdown.css'
 import { CountdownState, State } from '../state'
-import { EventKey, Event, FinalTimeChangeEvent, ResumeEvent } from '~/event'
+import {
+    EventKey,
+    Event,
+    FinalTimeChangeEvent,
+    ResumeEvent,
+    SetNoStartEvent,
+} from '~/event'
 import AdminPanel from '~/components/adminpanel'
 
 export default function ({
@@ -86,6 +92,18 @@ export default function ({
         setIsCounting(false)
         setIsPaused(false)
         setTimeRemaining('0')
+    })
+
+    handler.set('set_no_start', (payload: SetNoStartEvent) => {
+        if (cancel) {
+            clearInterval(cancel)
+            cancel = null
+        }
+
+        finalTime = payload.data.new_final_time
+        setIsCounting(false)
+        setIsPaused(true)
+        updateTime()
     })
 
     const updateTime = () => {

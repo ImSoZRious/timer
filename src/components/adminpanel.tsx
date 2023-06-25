@@ -61,6 +61,17 @@ export default function ({
         )
     }
 
+    const sendSetNoStart = () => {
+        ws.send(
+            JSON.stringify({
+                type: 'set_no_start',
+                data: {
+                    new_final_time: getFinalTimestamp(),
+                },
+            })
+        )
+    }
+
     const parseIntOrZero = (x: string) => {
         const parsed = parseInt(x)
         if (isNaN(parsed)) {
@@ -120,6 +131,13 @@ export default function ({
                     onClick={sendNewFinalTime}
                 >
                     start
+                </button>
+                <button
+                    class="admin-btn time-input-element"
+                    title="update final time"
+                    onClick={sendSetNoStart}
+                >
+                    set
                 </button>
             </div>
         </div>
