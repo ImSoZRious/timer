@@ -22,10 +22,16 @@ export interface ResumeEvent {
     }
 }
 
+export interface ResetEvent {
+    type: 'reset'
+    data: {}
+}
+
 export type Event =
     | FinalTimeChangeEvent
     | AdminNotice
     | PauseEvent
     | ResumeEvent
+    | ResetEvent
 
 export type EventKey = Event['type']

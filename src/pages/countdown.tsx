@@ -76,6 +76,18 @@ export default function ({
         }, 1000 / 60)
     })
 
+    handler.set('reset', () => {
+        if (cancel) {
+            clearInterval(cancel)
+            cancel = null
+        }
+
+        finalTime = 0
+        setIsCounting(false)
+        setIsPaused(false)
+        setTimeRemaining('0')
+    })
+
     const updateTime = () => {
         const now = Date.now()
         if (finalTime <= now) {

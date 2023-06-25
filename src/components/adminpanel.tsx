@@ -52,6 +52,15 @@ export default function ({
         )
     }
 
+    const resetTimer = () => {
+        ws.send(
+            JSON.stringify({
+                type: 'reset',
+                data: {},
+            })
+        )
+    }
+
     const parseIntOrZero = (x: string) => {
         const parsed = parseInt(x)
         if (isNaN(parsed)) {
@@ -71,12 +80,20 @@ export default function ({
                 </button>
             </Show>
             <Show when={isPaused()}>
-                <button
-                    class="admin-btn container-element"
-                    onClick={resumeTimer}
-                >
-                    resume
-                </button>
+                <div class="pause-container">
+                    <button
+                        class="admin-btn container-element"
+                        onClick={resumeTimer}
+                    >
+                        resume
+                    </button>
+                    <button
+                        class="admin-btn container-element"
+                        onClick={resetTimer}
+                    >
+                        reset
+                    </button>
+                </div>
             </Show>
             <div class="time-input-container container-element">
                 <input
@@ -102,7 +119,7 @@ export default function ({
                     title="update final time"
                     onClick={sendNewFinalTime}
                 >
-                    set
+                    start
                 </button>
             </div>
         </div>

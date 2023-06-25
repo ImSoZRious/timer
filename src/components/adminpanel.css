@@ -16,6 +16,11 @@
     text-align: center;
 }
 
+.pause-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .time-input-element::-webkit-outer-spin-button,
 .time-input-element::-webkit-inner-spin-button {
     -webkit-appearance: none;
